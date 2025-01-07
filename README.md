@@ -34,7 +34,7 @@
         사용 데이터 : https://www.kaggle.com/datasets/prathamtripathi/drug-classification/data<br> 
         사용 모델 : randomForest, KNN <br> 
         언어 : <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"> <br> 
-        <img src="![drug200_streamlit](https://github.com/user-attachments/assets/5d8ac904-d645-4045-8402-64d2e503e588)"> <br>  
+        <img src="./img/drug200_streamlit.png"> <br>  
     </div>
     <div style="text-align: left;"> 
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🏅 Stats </h2> <div style="text-align: left;"> <img src="https://github-readme-stats.vercel.app/api?username=PlaidMoon99&bg_color=60,f9b9ed,b0ff94&title_color=000000&text_color=000000"
