@@ -29,13 +29,17 @@
     </div>
     <div style="text-align: left;">
         <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 👩🏻‍💻 Project </h2> <br> 
-        AI 기반 약물 예측모델 개발 및 시각화<br> 
+        :rice: AI 기반 약물 예측모델 개발 및 시각화<br> 
+        2025.01.03 ~ 2025.01.07 | 기여도 100% <br>
         사용 데이터 : https://www.kaggle.com/datasets/prathamtripathi/drug-classification/data<br> 
-        사용 모델 : randomForest, KNN<br> 
+        사용 모델 : randomForest, KNN <br> 
+        언어 : <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"> <br> 
+        <img src="![drug200_streamlit](https://github.com/user-attachments/assets/d61f13ad-4353-493d-892b-92968278d748)">       
     </div>
     <div style="text-align: left;"> 
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🏅 Stats </h2> <div style="text-align: left;"> <img src="https://github-readme-stats.vercel.app/api?username=PlaidMoon99&bg_color=60,f9b9ed,b0ff94&title_color=000000&text_color=000000"
          /> <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PlaidMoon99&layout=compact&bg_color=60,f9b9ed,b0ff94&title_color=000000&text_color=000000"
            /> </div> 
     </div>
+    
     
