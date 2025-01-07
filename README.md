@@ -28,12 +28,12 @@
           </div>
     </div>
     <div style="text-align: left;">
-        <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 👩🏻‍💻 Project </h2> <br> 
-        :rice: AI 기반 약물 예측모델 개발 및 시각화<br> 
-        2025.01.03 ~ 2025.01.07 | 기여도 100% <br>
-        사용 데이터 : https://www.kaggle.com/datasets/prathamtripathi/drug-classification/data<br> 
-        사용 모델 : randomForest, KNN <br> 
-        언어 : <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"> <br> 
+        <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 👩🏻‍💻 Project </h2> 
+        <p style="font-size=21px"> :rice: AI 기반 약물 예측모델 개발 및 시각화 </p>
+            2025.01.03 ~ 2025.01.07 | 기여도 100% <br>
+            사용 데이터 : https://www.kaggle.com/datasets/prathamtripathi/drug-classification/data<br> 
+            사용 모델 : randomForest, KNN <br> 
+            언어 : <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"> <br> 
         <img src="./img/drug200_streamlit.png"> <br>  
     </div>
     <div style="text-align: left;"> 
