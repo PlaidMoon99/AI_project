@@ -39,6 +39,8 @@ knn.fit(X_train, y_train)
 # Prediction
 y_pred = knn.predict(X_test)
 
+
+
 # Feature Importance
 feature_importances = pd.DataFrame({
     'Feature': X_transformed.columns,
@@ -91,6 +93,23 @@ with col2:
         st.subheader('Prediction Result')
         drug_mapping = {0: 'Drug 1', 1: 'Drug 2', 2: 'Drug 3', 3: 'Drug 4', 4: 'Drug 5', 5: 'Drug 6', 6: 'Drug 7', 7: 'Drug 8'}
         st.write(f"The predicted drug for the selected input is: {drug_mapping[input_prediction[0]]}")
+
+# Accuracy and Metrics
+accuracy = accuracy_score(y_test, y_pred)
+st.subheader("📊 Model Performance")
+st.write(f"**Accuracy**: {accuracy:.2f}")
+
+# Bar Plot: Actual vs Predicted Counts
+st.subheader("Actual vs Predicted Count Comparison")
+comparison_df = pd.DataFrame({
+    "True Label": y_test,
+    "Predicted Label": y_pred
+})
+
+fig, ax = plt.subplots()
+sns.countplot(data=comparison_df.melt(var_name="Type", value_name="Label"), x="Label", hue="Type", palette="pastel", ax=ax)
+plt.title("Actual vs Predicted Count Comparison")
+st.pyplot(fig)
 
 # Display dataset
 st.subheader('Dataset Preview')
