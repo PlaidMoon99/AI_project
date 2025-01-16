@@ -2,12 +2,19 @@ import gradio as gr
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import tempfile
+import pandas as pd
 from dotenv import load_dotenv
 from gtts import gTTS
 from PIL import Image
 import whisper
 import os
 import io
+from langchain_community.chat_models import ChatOllama
+from langchain.schema import HumanMessage, AIMessage
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.chains import ConversationalRetrievalChain
 
 
 # 파일 읽기 함수
@@ -18,19 +25,47 @@ def read_file(file_path):
 # .env 파일에서 환경 변수 로드 (필요한 경우)
 load_dotenv()
 
-# 챗봇 응답 생성 함수
-def chatbot_response(user_input, chat_history):
-    # 간단한 키워드 기반 응답 예제
-    if "climate" in user_input.lower() or "change" in user_input.lower():
-        response = "Climate change is a critical issue affecting our planet."
-    elif "history" in user_input.lower():
-        response = "History is a vast subject with many interesting events to explore."
-    else:
-        response = "I'm here to help! Can you provide more details?"
+# ChatOllama 모델 초기화
+model = ChatOllama(model="gemma2", temperature=0.7, verbose=False)
+
+
+# 채팅 기록을 포함하여 응답을 생성하는 함수
+def chat(message, history):
+    # 이전 대화 기록을 ChatOllama 형식으로 변환
+    chat_history = []
+    for human, ai in history:
+        chat_history.append(HumanMessage(content=human))
+        chat_history.append(AIMessage(content=ai))
+
+    # 현재 메시지 추가
+    chat_history.append(HumanMessage(content=message))
+
+    # 모델을 사용하여 응답 생성
+    response = model.invoke(chat_history)
+
+    return response.content
+
+# CSV 파일 읽고 텍스트 분할하는 함수
+def read_csv_and_split(file_path):
+    # CSV 파일 읽기
+    df = pd.read_csv(file_path, encoding='CP949')
     
-    # 대화 히스토리 업데이트
-    chat_history.append((user_input, response))
-    return chat_history, chat_history
+    # 모든 데이터를 하나의 문자열로 합친 후, 텍스트 분할
+    txt_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    txts = txt_splitter.split_text("\n".join(df.to_string(index=False, header=False)))
+    
+    return txts
+
+# CSV 파일에서 질문에 대한 답을 찾는 함수
+def answer_from_csv(file, question):
+    # CSV 파일 읽고 텍스트 분할
+    txts = read_csv_and_split(file.name)
+    
+    # 각 텍스트에서 질문을 찾고 답변 생성
+    for txt in txts:
+        if question in txt:  # 질문이 텍스트 내에 있으면
+            return chat(question, [])
+    return "질문에 대한 답을 찾을 수 없습니다."
 
 # 워드클라우드 생성 함수
 def generate_wordcloud(text):
@@ -114,11 +149,17 @@ with gr.Blocks() as demo:
     with gr.Tab("Chatbot"):
         chat_history = gr.State([])  # 대화 히스토리 저장
         chatbot_input = gr.Textbox(label="Enter your message", placeholder="Type here...")
-        chatbot_output = gr.Chatbot(label="Chat History", type='messages')
+        chatbot_output = gr.Textbox(label="AI Response", interactive=False)
         send_button = gr.Button("Send")
-        
-        send_button.click(chatbot_response, inputs=[chatbot_input, chat_history], outputs=[chatbot_output, chat_history])
 
+        send_button.click(chat, inputs=[chatbot_input, chat_history], outputs=[chatbot_output, chat_history])
+
+    with gr.Tab("Examples"):
+        file_input = gr.File(label="Upload CSV File with Questions")
+        question_input = gr.Textbox(label="Ask a question from the file")
+        response_output = gr.Textbox(label="AI Response", interactive=False)
+        
+           
     with gr.Tab("WordCloud"):
         # 파일 경로를 지정할 수도 있고, 직접 텍스트를 입력받을 수도 있음
         file_input = gr.File(label="Upload Text File")
