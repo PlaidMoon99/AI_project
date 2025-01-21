@@ -2,4 +2,3 @@ flower_dataset/
 .venv/
 ffmpeg/
 .gradio
-.venv\
